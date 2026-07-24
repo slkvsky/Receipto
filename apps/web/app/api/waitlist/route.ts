@@ -37,8 +37,10 @@ export async function POST(request: Request) {
         text: 'Danke! Wir melden uns, sobald Receipto im App Store verfügbar ist.\n\n— Receipto',
       })
     } catch (e) {
-      // Don't fail the request if confirmation email bounces
-      console.error('Confirmation email failed:', e)
+      // Don't fail the request if confirmation email bounces.
+      // Log only the message — the Resend SDK error can embed the request
+      // payload (including the recipient's email address).
+      console.error('Confirmation email failed:', e instanceof Error ? e.message : 'unknown error')
     }
   }
 

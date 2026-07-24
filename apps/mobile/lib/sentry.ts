@@ -45,6 +45,8 @@ export function captureMessage(message: string, context?: Record<string, unknown
   if (dsn) {
     Sentry.captureMessage(message, { extra: context })
   } else {
-    console.warn('[dev]', message, context)
+    // Dev-only fallback; redact PII the same way captureException does.
+    const safe = context ? redactPii(context) : undefined
+    console.warn('[dev]', message, safe)
   }
 }
