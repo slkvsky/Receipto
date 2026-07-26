@@ -1,4 +1,5 @@
 import { createClient } from 'jsr:@supabase/supabase-js@2'
+import { formatGermanDate } from '../_shared/letter-validators.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -14,11 +15,6 @@ function jsonResponse(body: unknown, status = 200): Response {
 
 function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10)
-}
-
-function formatGermanDate(iso: string): string {
-  const [y, m, d] = iso.split('-')
-  return `${d}.${m}.${y}`
 }
 
 type DeadlineType = 'beweislastumkehr_30d' | 'gewaehrleistung_30d'
